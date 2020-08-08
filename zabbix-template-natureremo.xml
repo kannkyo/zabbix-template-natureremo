@@ -278,6 +278,27 @@
     </templates>
     <graphs>
         <graph>
+            <name>Illumination &amp; Movement</name>
+            <graph_items>
+                <graph_item>
+                    <color>199C0D</color>
+                    <item>
+                        <host>Template Nature Remo</host>
+                        <key>nr.environment[illumination]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>F63100</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>Template Nature Remo</host>
+                        <key>nr.environment[movement]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
             <name>Temperature &amp; Humidity</name>
             <graph_items>
                 <graph_item>
