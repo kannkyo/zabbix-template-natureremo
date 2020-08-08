@@ -149,7 +149,6 @@
                     <name>Device Info Json Data</name>
                     <type>HTTP_AGENT</type>
                     <key>nr.device</key>
-                    <delay>5m</delay>
                     <history>0</history>
                     <trends>0</trends>
                     <value_type>TEXT</value_type>
@@ -164,6 +163,7 @@
                             <params>$.body</params>
                         </step>
                     </preprocessing>
+                    <timeout>10s</timeout>
                     <url>https://api.nature.global/1/devices</url>
                     <follow_redirects>NO</follow_redirects>
                     <headers>
