@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-10T16:00:04Z</date>
+    <date>2020-08-08T06:33:09Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -18,10 +18,133 @@
             </groups>
             <applications>
                 <application>
+                    <name>Applicancese</name>
+                </application>
+                <application>
                     <name>Environment</name>
                 </application>
             </applications>
             <items>
+                <item>
+                    <name>Appliancese Info Json Data</name>
+                    <type>HTTP_AGENT</type>
+                    <key>nr.appliancese</key>
+                    <history>0</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Applicancese</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.body</params>
+                        </step>
+                    </preprocessing>
+                    <timeout>10s</timeout>
+                    <url>https://api.nature.global/1/appliances</url>
+                    <follow_redirects>NO</follow_redirects>
+                    <headers>
+                        <header>
+                            <name>Authorization</name>
+                            <value>Bearer {$ACCESS_TOKEN}</value>
+                        </header>
+                        <header>
+                            <name>Content-Type</name>
+                            <value>application/json</value>
+                        </header>
+                    </headers>
+                    <output_format>JSON</output_format>
+                </item>
+                <item>
+                    <name>Aircon AirDirection</name>
+                    <type>DEPENDENT</type>
+                    <key>nr.appliancese[dir]</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Applicancese</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.device.id == &quot;{$TARGET_DEVICE}&quot;)].settings.dir.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>nr.appliancese</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Aircon Mode</name>
+                    <type>DEPENDENT</type>
+                    <key>nr.appliancese[mode]</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Applicancese</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.device.id == &quot;{$TARGET_DEVICE}&quot;)].settings.mode.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>nr.appliancese</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Aircon Temperature</name>
+                    <type>DEPENDENT</type>
+                    <key>nr.appliancese[temp]</key>
+                    <delay>0</delay>
+                    <units>C</units>
+                    <applications>
+                        <application>
+                            <name>Applicancese</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.device.id == &quot;{$TARGET_DEVICE}&quot;)].settings.temp.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>nr.appliancese</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>Aircon AirVolume</name>
+                    <type>DEPENDENT</type>
+                    <key>nr.appliancese[vol]</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <applications>
+                        <application>
+                            <name>Applicancese</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.device.id == &quot;{$TARGET_DEVICE}&quot;)].settings.vol.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>nr.appliancese</key>
+                    </master_item>
+                </item>
                 <item>
                     <name>Device Info Json Data</name>
                     <type>HTTP_AGENT</type>
@@ -56,7 +179,7 @@
                     <output_format>JSON</output_format>
                 </item>
                 <item>
-                    <name>Humidity</name>
+                    <name>Room Humidity</name>
                     <type>DEPENDENT</type>
                     <key>nr.environment[humidity]</key>
                     <delay>0</delay>
@@ -77,7 +200,7 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Illumination</name>
+                    <name>Room Illumination</name>
                     <type>DEPENDENT</type>
                     <key>nr.environment[illumination]</key>
                     <delay>0</delay>
@@ -98,7 +221,7 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Movement</name>
+                    <name>Room Movement</name>
                     <type>DEPENDENT</type>
                     <key>nr.environment[movement]</key>
                     <delay>0</delay>
@@ -121,7 +244,7 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Temperature</name>
+                    <name>Room Temperature</name>
                     <type>DEPENDENT</type>
                     <key>nr.environment[temperature]</key>
                     <delay>0</delay>
@@ -166,6 +289,14 @@
                 </graph_item>
                 <graph_item>
                     <sortorder>1</sortorder>
+                    <color>2774A4</color>
+                    <item>
+                        <host>Template Nature Remo</host>
+                        <key>nr.appliancese[temp]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
                     <color>1A7C11</color>
                     <yaxisside>RIGHT</yaxisside>
                     <item>
